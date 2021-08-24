@@ -1,6 +1,7 @@
 'use strict';
 
 // 3rd Party Resources
+require('dotenv').config();
 const express = require('express');
 const { Sequelize } = require('sequelize');
 
@@ -18,6 +19,6 @@ app.use(express.urlencoded({ extended: true }));
 
 module.exports = {
   app: app,
-  start: app.listen(3000, () => console.log('server up')),
+  start: port => { app.listen(port, () => console.log('server up')); },
   sequelize: sequelize,
 };

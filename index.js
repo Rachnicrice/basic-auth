@@ -1,12 +1,12 @@
 'use strict';
 
 require('dotenv').config();
-const { app, sequelize } = require('./src/server.js');
+const app = require('./src/server.js');
+const PORT = process.env.PORT || 3000;
 
-
-sequelize.sync()
+app.sequelize.sync()
   .then(() => {
-    app.start();
+    app.start(PORT);
   }).catch(e => {
     console.error('Could not start server', e.message);
   });

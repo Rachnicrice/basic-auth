@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
+    "username": "rachaelrice",
     "password": null,
-    "database": "database_development",
+    "database": "basic_auth",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgresql"
   },
   "test": {
     "username": "root",
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgresql"
   },
   "production": {
-    "username": "root",
+    "username": "rachaelrice",
     "password": null,
-    "database": "database_production",
+    "database": "basic_auth",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgresql"
   }
 }

@@ -12,8 +12,7 @@
 ### Setup
 
 #### `.env` requirements
-- `PORT` - Port Number
-- `DATABASE_URL` - URL to the running Postgres instance/db
+- `PORT` - 3000
 
 #### How to initialize/run your application (where applicable)
 

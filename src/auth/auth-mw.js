@@ -2,11 +2,7 @@
 
 const base64 = require('base-64');
 const bcrypt = require('bcrypt');
-const { DataTypes } = require('sequelize/types');
-const UserModel = require('../schemas/user.schema.js');
-const { sequelize } = require('../server.js');
-
-const Users = UserModel(sequelize, DataTypes);
+const Users = require('../schemas/user.schema.js');
 
 const authorize = async (err, req, res, next) => {
   /*

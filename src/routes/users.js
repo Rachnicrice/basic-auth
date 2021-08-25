@@ -22,6 +22,7 @@ authRoutes.post('/signup', async (req, res) => {
 // http post :3000/signin -a john:foo
 authRoutes.post('/signin', authMW, async (req, res) => {
   try {
+    console.log(req);
     if (req.validUser) {
       res.status(200).json(req.validUser);
     }

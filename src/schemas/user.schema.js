@@ -25,8 +25,11 @@ Users.authenticate = async (username, password) => {
   const user = await Users.findOne({ where: { username: username } });
   const valid = await bcrypt.compare(password, user.password);
 
-  if (valid) return user;
-  return new Error('Unauthenticated');
+  if (valid) {
+    return user;
+  } else {
+    throw new Error('Unauthenticated');
+  }
 };
 
 

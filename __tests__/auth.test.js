@@ -2,7 +2,6 @@
 
 
 const { app } = require('../src/server.js');
-const authMW = require('../src/auth/auth-mw.js');
 const { sequelize } = require('../src/schemas/index.js');
 const supertest = require('supertest');
 const { it, expect } = require('@jest/globals');
@@ -30,30 +29,11 @@ describe('Auth Route testing', () => {
     expect(results.status).toEqual(200);
   });
 
-  it('Auth middleware can validate an existing user', async () => {
-    // let req = {
-    //   headers: {
-    //     authorization: ['Basic', 'sdkjdsljd='],
-    //   },
-    // };
-
-    // let res = {};
-
-    // await mockRequest.post('/signup').send({username:'john', password:'foo'});
-    // let results = await authMW(req, res);
-    // console.log(results);
-  });
-
   it('can go to /signin and log in if existing user', async () => {
     await mockRequest.post('/signup').send({username:'john', password:'foo'});
     let results = await mockRequest.post('/signin').auth('john', 'foo');
+    expect(results.body).toBeDefined();
     expect(results.status).toEqual(200);
   });
-
-
-  it('will fail on bad login info', () => {
-
-  });
-
 
 });

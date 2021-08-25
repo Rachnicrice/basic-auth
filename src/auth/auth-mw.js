@@ -4,7 +4,7 @@ const base64 = require('base-64');
 const bcrypt = require('bcrypt');
 const Users = require('../schemas/user.schema.js');
 
-const authorize = async (err, req, res, next) => {
+const authorize = async (req, res, next) => {
   /*
   req.headers.authorization is : "Basic sdkjdsljd="
   To get username and password from this, take the following steps:
@@ -15,7 +15,9 @@ const authorize = async (err, req, res, next) => {
     - Pull username and password from that array
   */
 
-  let basicHeaderParts = req.headers.authorization.split(' ');  // ['Basic', 'sdkjdsljd=']
+  console.log('I\'m in the middleware!!!');
+
+  let basicHeaderParts = req.headers.authorization; // ['Basic', 'sdkjdsljd=']
   let encodedString = basicHeaderParts.pop();  // sdkjdsljd=
   let decodedString = base64.decode(encodedString); // "username:password"
   let [username, password] = decodedString.split(':'); // username, password
@@ -28,7 +30,8 @@ const authorize = async (err, req, res, next) => {
       3. Either we're valid or we throw an error
   */
   const user = await Users.findOne({ where: { username: username } });
-  const valid = await bcrypt.compare(password, user.password);
+  let valid = user.authenticate(user, password);
+
   if (valid) {
     req.validUser = user;
     next();

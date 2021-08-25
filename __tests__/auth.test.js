@@ -45,9 +45,9 @@ describe('Auth Route testing', () => {
   });
 
   it('can go to /signin and log in if existing user', async () => {
-    // await mockRequest.post('/signup').send({username:'john', password:'foo'});
-    // let results = mockRequest.post('/signin').auth('john', 'foo');
-    // expect(results.status).toEqual(200);
+    await mockRequest.post('/signup').send({username:'john', password:'foo'});
+    let results = await mockRequest.post('/signin').auth('john', 'foo');
+    expect(results.status).toEqual(200);
   });
 
 

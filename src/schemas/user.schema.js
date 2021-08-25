@@ -21,8 +21,12 @@ Users.beforeCreate((user, options) => {
   });
 });
 
-Users.authenticate = async (user, password) => {
-  return await bcrypt.compare(password, user.password);
+Users.authenticate = async (username, password) => {
+  const user = await Users.findOne({ where: { username: username } });
+  const valid = await bcrypt.compare(password, user.password);
+
+  if (valid) return user;
+  return new Error('Unauthenticated');
 };
 
 

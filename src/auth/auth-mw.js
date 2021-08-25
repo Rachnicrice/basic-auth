@@ -15,9 +15,7 @@ const authorize = async (req, res, next) => {
     - Pull username and password from that array
   */
 
-  console.log('I\'m in the middleware!!!');
-
-  let basicHeaderParts = req.headers.authorization; // ['Basic', 'sdkjdsljd=']
+  let basicHeaderParts = req.headers.authorization.split(' '); // ['Basic', 'sdkjdsljd=']
   let encodedString = basicHeaderParts.pop();  // sdkjdsljd=
   let decodedString = base64.decode(encodedString); // "username:password"
   let [username, password] = decodedString.split(':'); // username, password
@@ -29,10 +27,10 @@ const authorize = async (req, res, next) => {
           - bcrypt does this by re-encrypting the plaintext password and comparing THAT
       3. Either we're valid or we throw an error
   */
-  const user = await Users.findOne({ where: { username: username } });
-  let valid = user.authenticate(user, password);
 
-  if (valid) {
+  const user = await Users.authenticate(username, password);
+
+  if (user) {
     req.validUser = user;
     next();
   }
